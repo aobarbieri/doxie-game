@@ -1,5 +1,9 @@
 # Choice of Game: SNAKE (Dachshund as a character)
 
+# Wireframe
+https://www.figma.com/file/lOJ2dlLjrZpje13gi3NXQi/Dachshund-Game-(Snake)?type=design&node-id=0%3A1&mode=design&t=Zufn8p0i9zKF93FT-1
+
+
 # App's functionality
 
 - As a player, I want to guide the dog to eat the treat so it can grow longer.

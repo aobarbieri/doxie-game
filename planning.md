@@ -11,13 +11,13 @@ https://www.figma.com/file/lOJ2dlLjrZpje13gi3NXQi/Dachshund-Game-(Snake)?type=de
 - As a player, I want to control the character using the keyboard arrow.
 
 * Rules
-  -> Do not let the character hit a wall
-  -> Do not bite your own body
-  -> Your score is calculated based on the number of treats you eat
+  * Do not let the character hit a wall
+  * Do not bite your own body
+  * Your score is calculated based on the number of treats you eat
 
 * Win/Lose
-  Win -> You win the game when there is no more room for your dog to grow
-  Lose -> You lose the game if the dog bites its body or hit a wall
+  * Win - You win the game when there is no more room for your dog to grow
+  * Lose - You lose the game if the dog bites its body or hit a wall
 
 
 # Pseudocode 
@@ -29,7 +29,7 @@ https://www.figma.com/file/lOJ2dlLjrZpje13gi3NXQi/Dachshund-Game-(Snake)?type=de
 - Display treats on the grid based on random location
 - Allow the dog to eat the treats
   - Treats disappear 
-  - Count how many treats was eaten so far
-- Show te score to the player so they know how many treats they ate.
+  - Count how many treats were eaten so far
+- Update the score so the player know how many treats they ate.
   
   

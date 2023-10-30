@@ -66,6 +66,10 @@ body {
     background-color: #64BC67;
 }
 
+.dog-body {
+    background-color: #AC5726;
+}
+
 .start {
     position        : absolute;
     width           : 100%;
@@ -88,11 +92,11 @@ body {
     transform       : translate(-50%, -50%);
 }
 
-.hidden {
-    display: none;
-}
-
 .food {
     width : 2rem;
     height: 1.082rem;
+}
+
+.hidden {
+    display: none;
 }

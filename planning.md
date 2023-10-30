@@ -31,7 +31,7 @@ ICEBOX
 # Pseudocode 
 
 $ Player clicks on a button to start the game 
-  - There will be a countdown (3, 2, 1)
+  ICEBOX - There will be a countdown (3, 2, 1)
   - The dog starts moving
 
 $ Player uses the keyboard to navigate the dog towards the treat

@@ -1,10 +1,11 @@
 /* constants */
 
 /* state variables */
-
 let score
 let speed
 let grid = []
+let dogBody = [0, 0, 0]
+let move = 1
 
 /* cached elements */
 const startScreen = document.querySelector('.start')
@@ -12,27 +13,27 @@ const btnStart = document.querySelector('.start button')
 const count = document.querySelector('.start span')
 const board = document.querySelector('#grid')
 
-
 /* event listeners */
 btnStart.addEventListener('click', handleStartBtn)
 
 
+/* functions */
 function handleStartBtn() {
 	startScreen.classList.add('hidden')
+	//setInterval(setInicialLocation, 1000)
 }
 
-/* functions */
 init()
 
 function init() {
     render()
-    
-    board.addEventListener('click', getCell)
 }
 
 function render() {
 	setGrid()
 	setBoard()
+	setInicialLocation()
+	
 }
 
 function setGrid() {
@@ -50,7 +51,7 @@ function setBoard() {
 	for (let column = 0; column < grid.length; column++) {
 		for (let row = 0; row < grid[column].length; row++) {
 			let newEl = document.createElement('div')
-			board.appendChild(newEl)
+            board.appendChild(newEl)
 
 			if (column % 2 !== 0) {
 				row % 2 === 0 ? newEl.classList.add('dark-green') : newEl.classList.add('light-green')
@@ -61,6 +62,51 @@ function setBoard() {
 	}
 }
 
-function getCell(e) {
-    console.log(e.target.dataset)
+function setInicialLocation() {
+    let locations = document.querySelectorAll('#grid div')
+    console.log(locations)
+    // let cell = 0
+    // for (const el of locations) {
+    //     el.innerHTML = cell
+    //     cell++
+    // }
+
+
+    let tail = dogBody.pop()
+    locations[tail].classList.remove('dog-body')
+    dogBody.unshift(dogBody[0] + move)
+
+    locations[dogBody[0]].classList.add('dog-body') 
+
+ 
+    
+    
+    
+    
+    
+    //locations[e].classList.add('dog-body')
+    
+    // for (let el = 0; el < locations.length; el++){
+    //     console.log(locations[el])
+    // }
+
 }
+
+
+
+// let next = 0
+
+// function move() {
+//     let locations = document.querySelectorAll('#grid div')
+//     console.log(locations[next])
+//     locations[next].classList.add('dog-body')
+
+//     next++
+// }
+
+
+
+// add class to snake body
+
+
+// remove class from snake body

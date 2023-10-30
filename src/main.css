@@ -8,11 +8,12 @@
 body {
     background-color: #263925;
     font-size       : 16px;
-    font-family: 'Lato', sans-serif;
+    font-family     : 'Lato', sans-serif;
+    color           : #292929;
 }
 
 .container {
-    display: flex;
+    display        : flex;
     justify-content: center;
     align-items    : center;
     height         : 100vh;
@@ -25,16 +26,70 @@ body {
 }
 
 .container_scoreboard {
-    align-content: center;
-    height: 5rem;
+    display        : flex;
+    align-items    : center;
+    font-weight    : 800;
+    justify-content: center;
+    height         : 5rem;
+    text-align     : center;
+}
+
+.container_scoreboard span:first-of-type {
+    color    : #083D00;
+    font-size: .75rem;
+    padding  : 0 .5rem;
+}
+
+.container_scoreboard span:last-of-type {
+    font-size: 1.375rem;
+    color    : #fff;
 }
 
 .container_grid {
-    background: url(../images/grid.png);
-    background-size: contain;
-    margin: 0 auto;
-    width: 27rem;
-    height: 27rem;
+    display  : flex;
+    flex-wrap: wrap;
+    margin   : 0 auto;
+    width    : 26.8125rem;
+    position : relative;
+}
+
+.container_grid div {
+    width : 1.7875rem;
+    height: 1.7875rem;
+}
+
+.light-green {
+    background-color: #73C677;
+}
+
+.dark-green {
+    background-color: #64BC67;
+}
+
+.start {
+    position        : absolute;
+    width           : 100%;
+    height          : 100%;
+    background-color: rgba(0, 0, 0, 0.35);
+}
+
+.start button {
+    position        : absolute;
+    background-color: #EEE400;
+    border          : 0;
+    border-radius   : .25rem;
+    height          : 4.43rem;
+    width           : 9.75rem;
+    font-size       : 2rem;
+    font-weight     : 800;
+    top             : 50%;
+    left            : 50%;
+    -ms-transform   : translate(-50%, -50%);
+    transform       : translate(-50%, -50%);
+}
+
+.hidden {
+    display: none;
 }
 
 .food {

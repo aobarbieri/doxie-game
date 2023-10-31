@@ -7,6 +7,7 @@ let grid = []
 let dogBody = [154, 153, 152]
 let direction = 1
 let interval 
+let numOfsquares
 
 /* cached elements */
 const startScreen = document.querySelector('.start')
@@ -25,28 +26,21 @@ function handleStartBtn() {
 }
 
 function handlePressedKey(e) {
-    if (e.keyCode === 40) {
-        console.log('down arrow pressed')
-        direction = 15
-        // add 15 to the direction
-	} else if (e.keyCode === 39) {
-        console.log('right arrow pressed')
+    if (e.keyCode === 40) { //down
+        direction = numOfsquares
+	} else if (e.keyCode === 39) { //right
         direction = 1
-        // add 1 to the direction
-	} else if (e.keyCode === 38) {
-        console.log('up arrow pressed')
-        direction = -15
-        //subtract -15 from the direction
-	} else if (e.keyCode === 37) {
-        console.log('left arrow pressed')
+	} else if (e.keyCode === 38) { //up
+        direction = -numOfsquares
+	} else if (e.keyCode === 37) { //left
         direction = -1
-        // subtract -1 to the direction
 	}
 }
 
 init()
 
 function init() {
+    numOfsquares = 20
     render()
 }
 
@@ -54,15 +48,14 @@ function render() {
 	setGrid()
     setBoard()
     setInicialLocation()
-	
 }
 
 function setGrid() {
-	while (grid.length < 15) {
+	while (grid.length < numOfsquares) {
 		grid.push([])
 	}
 	for (let i = 0; i < grid.length; i++) {
-		while (grid[i].length < 15) {
+		while (grid[i].length < numOfsquares) {
 			grid[i].push('0')
 		}
 	}
@@ -89,9 +82,11 @@ function setInicialLocation() {
         el.innerHTML = cell
         cell++
     }
+    result = gameOver(locations)
     locations[dogBody[0]].classList.add('body')
     locations[dogBody[1]].classList.add('body')
     locations[dogBody[2]].classList.add('body') 
+	
     setDirection(locations)
 }
 
@@ -103,11 +98,10 @@ function setDirection(locations) {
     */
     dogBody.unshift(dogBody[0] + direction)
     console.log(dogBody)
-    result = gameOver(locations)
     if (result) {
-        console.log('Game over - you hit a bottom or top wall!')
-        return clearInterval(interval)
-    }
+		console.log('Game over - you hit a wall!')
+		return clearInterval(interval)
+	}
     locations[dogBody[0]].classList.add('body')
     
     /* Grab the last element of the dogBody
@@ -120,7 +114,8 @@ function setDirection(locations) {
 }
 
 function gameOver(locations) {
-    if ([dogBody[0]] < 0 || [dogBody[0]] > locations.length) {
+    if ([dogBody[0]] < 0 || [dogBody[0]] > locations.length ||
+        [dogBody[0]] % numOfsquares === 0 || [dogBody[0]] % 9 === 9) {
         return true
     } else return false
 }

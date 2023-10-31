@@ -4,8 +4,8 @@
 let score
 let speed
 let grid = []
-let dogBody = [0, 0, 0]
-let direction
+let dogBody = [154, 153, 152]
+let direction = 1
 
 /* cached elements */
 const startScreen = document.querySelector('.start')
@@ -26,15 +26,19 @@ function handleStartBtn() {
 function handlePressedKey(e) {
     if (e.keyCode === 40) {
         console.log('down arrow pressed')
+        direction = 15
         // add 15 to the direction
 	} else if (e.keyCode === 39) {
         console.log('right arrow pressed')
+        direction = 1
         // add 1 to the direction
 	} else if (e.keyCode === 38) {
         console.log('up arrow pressed')
+        direction = -15
         //subtract -15 from the direction
 	} else if (e.keyCode === 37) {
         console.log('left arrow pressed')
+        direction = -1
         // subtract -1 to the direction
 	}
 }
@@ -49,7 +53,6 @@ function render() {
 	setGrid()
     setBoard()
     setInicialLocation()
-    setDirection()
 	
 }
 
@@ -85,17 +88,29 @@ function setInicialLocation() {
         el.innerHTML = cell
         cell++
     }
-    console.log(locations[dogBody])
-    locations[dogBody[0]].classList.add('body') 
+    locations[dogBody[0]].classList.add('body')
+    locations[dogBody[1]].classList.add('body')
+    locations[dogBody[2]].classList.add('body') 
+    setDirection(locations)
 }
 
-function setDirection() {
-    let locations = document.querySelectorAll('#grid div')
+function setDirection(locations) {
+    /* Add the first element + the direction of dogBody
+    at the beginning of its own array
+    (154 + 1) dogBody = [155, 154, 153, 152]
+    (154 + 15) dogBody = [169, 154, 153, 152]
+    */
+    dogBody.unshift(dogBody[0] + direction)
+    console.log(dogBody)
+    locations[dogBody[0]].classList.add('body')
+    
+    /* Grab the last element of the dogBody
+    tail -> 152
+    Access the tail index -> 152 = div with number 153 on it
+    remove the class body from the div 153
+    */
     let tail = dogBody.pop()
-	console.log(tail)
-	locations[tail].classList.remove('body')
-	dogBody.unshift(dogBody[0] + 1)
-	locations[dogBody[0]].classList.add('body')
+    locations[tail].classList.remove('body')
 }
 
 

@@ -6,6 +6,7 @@ let speed
 let grid = []
 let dogBody = [154, 153, 152]
 let direction = 1
+let interval 
 
 /* cached elements */
 const startScreen = document.querySelector('.start')
@@ -20,7 +21,7 @@ document.addEventListener('keydown', handlePressedKey)
 /* functions */
 function handleStartBtn() {
 	startScreen.classList.add('hidden')
-	setInterval(setInicialLocation, 1000)
+	interval = setInterval(setInicialLocation, 1000)
 }
 
 function handlePressedKey(e) {
@@ -102,6 +103,11 @@ function setDirection(locations) {
     */
     dogBody.unshift(dogBody[0] + direction)
     console.log(dogBody)
+    result = gameOver(locations)
+    if (result) {
+        console.log('Game over - you hit a bottom or top wall!')
+        return clearInterval(interval)
+    }
     locations[dogBody[0]].classList.add('body')
     
     /* Grab the last element of the dogBody
@@ -111,6 +117,12 @@ function setDirection(locations) {
     */
     let tail = dogBody.pop()
     locations[tail].classList.remove('body')
+}
+
+function gameOver(locations) {
+    if ([dogBody[0]] < 0 || [dogBody[0]] > locations.length) {
+        return true
+    } else return false
 }
 
 

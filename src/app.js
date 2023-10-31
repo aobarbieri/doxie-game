@@ -4,10 +4,11 @@
 let score
 let speed
 let grid = []
-let dogBody = [154, 153, 152]
+let dogBody = [284, 283, 282]
 let direction = 1
 let interval 
 let numOfsquares
+let locationsList
 
 /* cached elements */
 const startScreen = document.querySelector('.start')
@@ -20,9 +21,11 @@ btnStart.addEventListener('click', handleStartBtn)
 document.addEventListener('keydown', handlePressedKey)
 
 /* functions */
+
+
 function handleStartBtn() {
 	startScreen.classList.add('hidden')
-	interval = setInterval(setInicialLocation, 1000)
+	interval = setInterval(checkNextStep, 1000)
 }
 
 function handlePressedKey(e) {
@@ -47,7 +50,16 @@ function init() {
 function render() {
 	setGrid()
     setBoard()
-    setInicialLocation()
+    let startPosition = document.querySelectorAll('#grid div')
+	startPosition[dogBody[0]].classList.add('body')
+	startPosition[dogBody[1]].classList.add('body')
+    startPosition[dogBody[2]].classList.add('body')
+    
+    // let cell = 0
+	// for (const el of startPosition) {
+	// 	el.innerHTML = cell
+	// 	cell++
+	// }
 }
 
 function setGrid() {
@@ -75,35 +87,24 @@ function setBoard() {
 	}
 }
 
-function setInicialLocation() {
+function checkNextStep() {
     let locations = document.querySelectorAll('#grid div')
-    let cell = 0
-    for (const el of locations) {
-        el.innerHTML = cell
-        cell++
-    }
-    result = gameOver(locations)
-    locations[dogBody[0]].classList.add('body')
-    locations[dogBody[1]].classList.add('body')
-    locations[dogBody[2]].classList.add('body') 
-	
-    setDirection(locations)
+    
+	if(gameOver(locations)){
+		console.log('Game over - you hit a wall!')
+		return clearInterval(interval)
+	} else {
+		setDirection(locations)
+	}
+}
+
+function gameOver(locations) {
+	if ([dogBody[0]] < 0 || [dogBody[0]] > locations.length || [dogBody[0]] % numOfsquares === 0 || [dogBody[0]] % 9 === 9) {
+		return true
+	} else return false
 }
 
 function setDirection(locations) {
-    /* Add the first element + the direction of dogBody
-    at the beginning of its own array
-    (154 + 1) dogBody = [155, 154, 153, 152]
-    (154 + 15) dogBody = [169, 154, 153, 152]
-    */
-    dogBody.unshift(dogBody[0] + direction)
-    console.log(dogBody)
-    if (result) {
-		console.log('Game over - you hit a wall!')
-		return clearInterval(interval)
-	}
-    locations[dogBody[0]].classList.add('body')
-    
     /* Grab the last element of the dogBody
     tail -> 152
     Access the tail index -> 152 = div with number 153 on it
@@ -111,14 +112,20 @@ function setDirection(locations) {
     */
     let tail = dogBody.pop()
     locations[tail].classList.remove('body')
+    /* Add the first element + the direction of dogBody
+    at the beginning of its own array
+    (154 + 1) dogBody = [155, 154, 153, 152]
+    (154 + 15) dogBody = [169, 154, 153, 152]
+    */
+    dogBody.unshift(dogBody[0] + direction)
+    console.log(dogBody)
+    
+    locations[dogBody[0]].classList.add('body')
 }
 
-function gameOver(locations) {
-    if ([dogBody[0]] < 0 || [dogBody[0]] > locations.length ||
-        [dogBody[0]] % numOfsquares === 0 || [dogBody[0]] % 9 === 9) {
-        return true
-    } else return false
-}
+
+
+
 
 
 

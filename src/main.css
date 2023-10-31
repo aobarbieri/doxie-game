@@ -31,11 +31,11 @@ body {
     font-weight    : 800;
     justify-content: space-between;
     height         : 3.25rem;
-    padding: 0 1.3rem;
+    padding        : 0 1.3rem;
 }
 
 .container_scoreboard-score {
-    display: flex;
+    display    : flex;
     align-items: center;
 }
 
@@ -75,15 +75,23 @@ body {
     background-color: #AC5726;
 }
 
-.start {
+.bg-start-end {
     position        : absolute;
     width           : 100%;
     height          : 100%;
     background-color: rgba(0, 0, 0, 0.35);
 }
 
+.end,
+.start {
+    display        : flex;
+    flex-direction : column;
+    align-items    : center;
+    justify-content: center;
+    gap            : 2.63rem;
+}
+
 .start button {
-    position        : absolute;
     background-color: #EEE400;
     border          : 0;
     border-radius   : .25rem;
@@ -91,10 +99,32 @@ body {
     width           : 9.75rem;
     font-size       : 2rem;
     font-weight     : 800;
-    top             : 50%;
-    left            : 50%;
-    -ms-transform   : translate(-50%, -50%);
-    transform       : translate(-50%, -50%);
+}
+
+.end p {
+    font-size  : 3.875rem;
+    color      : #fff;
+    text-shadow: 1px 1px 4px rgba(27, 27, 27, 1);
+}
+
+.end button {
+    display         : flex;
+    align-items     : center;
+    justify-content : center;
+    height          : 2.5rem;
+    width           : 7.375rem;
+    background-color: #fff;
+    border-radius   : .25rem;
+    border          : none;
+    color           : #252525;
+    font-size       : 1rem;
+}
+
+.end button:before {
+    content      : url('../images/play-again-icon.svg');
+    margin-bottom: -4px;
+    padding-right: 5px;
+
 }
 
 .food {

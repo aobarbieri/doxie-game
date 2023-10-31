@@ -6,7 +6,7 @@ let speed
 let grid = []
 let dogBody = [284, 283, 282]
 let direction = 1
-let interval 
+let interval
 let numOfsquares
 let locationsList
 
@@ -15,6 +15,7 @@ const startScreen = document.querySelector('.start')
 const btnStart = document.querySelector('.start button')
 const count = document.querySelector('.start span')
 const board = document.querySelector('#grid')
+const endScreen = document.querySelector('.end')
 
 /* event listeners */
 btnStart.addEventListener('click', handleStartBtn)
@@ -22,40 +23,43 @@ document.addEventListener('keydown', handlePressedKey)
 
 /* functions */
 
-
 function handleStartBtn() {
 	startScreen.classList.add('hidden')
 	interval = setInterval(checkNextStep, 1000)
 }
 
 function handlePressedKey(e) {
-    if (e.keyCode === 40) { //down
-        direction = numOfsquares
-	} else if (e.keyCode === 39) { //right
-        direction = 1
-	} else if (e.keyCode === 38) { //up
-        direction = -numOfsquares
-	} else if (e.keyCode === 37) { //left
-        direction = -1
+	if (e.keyCode === 40) {
+		//down
+		direction = numOfsquares
+	} else if (e.keyCode === 39) {
+		//right
+		direction = 1
+	} else if (e.keyCode === 38) {
+		//up
+		direction = -numOfsquares
+	} else if (e.keyCode === 37) {
+		//left
+		direction = -1
 	}
 }
 
 init()
 
 function init() {
-    numOfsquares = 20
-    render()
+	numOfsquares = 20
+	render()
 }
 
 function render() {
 	setGrid()
-    setBoard()
-    let startPosition = document.querySelectorAll('#grid div')
+	setBoard()
+	let startPosition = document.querySelectorAll('#grid div')
 	startPosition[dogBody[0]].classList.add('body')
 	startPosition[dogBody[1]].classList.add('body')
-    startPosition[dogBody[2]].classList.add('body')
-    
-    // let cell = 0
+	startPosition[dogBody[2]].classList.add('body')
+
+	// let cell = 0
 	// for (const el of startPosition) {
 	// 	el.innerHTML = cell
 	// 	cell++
@@ -77,20 +81,20 @@ function setBoard() {
 	for (let column = 0; column < grid.length; column++) {
 		for (let row = 0; row < grid[column].length; row++) {
 			let newEl = document.createElement('div')
-            board.appendChild(newEl)
+			board.appendChild(newEl)
 			if (column % 2 !== 0) {
-                row % 2 === 0 ? newEl.classList.add('dark-green') : newEl.classList.add('light-green')
+				row % 2 === 0 ? newEl.classList.add('dark-green') : newEl.classList.add('light-green')
 			} else {
-                row % 2 !== 0 ? newEl.classList.add('dark-green') : newEl.classList.add('light-green')
+				row % 2 !== 0 ? newEl.classList.add('dark-green') : newEl.classList.add('light-green')
 			}
 		}
 	}
 }
 
 function checkNextStep() {
-    let locations = document.querySelectorAll('#grid div')
-    
-	if(gameOver(locations)){
+	let locations = document.querySelectorAll('#grid div')
+
+	if (gameOver(locations)) {
 		console.log('Game over - you hit a wall!')
 		return clearInterval(interval)
 	} else {
@@ -105,28 +109,20 @@ function gameOver(locations) {
 }
 
 function setDirection(locations) {
-    /* Grab the last element of the dogBody
+	/* Grab the last element of the dogBody
     tail -> 152
     Access the tail index -> 152 = div with number 153 on it
     remove the class body from the div 153
     */
-    let tail = dogBody.pop()
-    locations[tail].classList.remove('body')
-    /* Add the first element + the direction of dogBody
+	let tail = dogBody.pop()
+	locations[tail].classList.remove('body')
+	/* Add the first element + the direction of dogBody
     at the beginning of its own array
     (154 + 1) dogBody = [155, 154, 153, 152]
     (154 + 15) dogBody = [169, 154, 153, 152]
     */
-    dogBody.unshift(dogBody[0] + direction)
-    console.log(dogBody)
-    
-    locations[dogBody[0]].classList.add('body')
+	dogBody.unshift(dogBody[0] + direction)
+	console.log(dogBody)
+
+	locations[dogBody[0]].classList.add('body')
 }
-
-
-
-
-
-
-
-

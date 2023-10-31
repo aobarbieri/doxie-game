@@ -5,6 +5,7 @@ let score
 let speed
 let grid = []
 let dogBody = [0, 0, 0]
+let direction
 
 /* cached elements */
 const startScreen = document.querySelector('.start')
@@ -19,18 +20,22 @@ document.addEventListener('keydown', handlePressedKey)
 /* functions */
 function handleStartBtn() {
 	startScreen.classList.add('hidden')
-	setInterval(setInicialLocationAndMove, 1000)
+	setInterval(setInicialLocation, 1000)
 }
 
 function handlePressedKey(e) {
     if (e.keyCode === 40) {
-		console.log('down arrow pressed')
+        console.log('down arrow pressed')
+        // add 15 to the direction
 	} else if (e.keyCode === 39) {
-		console.log('right arrow pressed')
+        console.log('right arrow pressed')
+        // add 1 to the direction
 	} else if (e.keyCode === 38) {
-		console.log('up arrow pressed')
+        console.log('up arrow pressed')
+        //subtract -15 from the direction
 	} else if (e.keyCode === 37) {
-		console.log('left arrow pressed')
+        console.log('left arrow pressed')
+        // subtract -1 to the direction
 	}
 }
 
@@ -42,8 +47,9 @@ function init() {
 
 function render() {
 	setGrid()
-	setBoard()
-	setInicialLocationAndMove()
+    setBoard()
+    setInicialLocation()
+    setDirection()
 	
 }
 
@@ -72,19 +78,24 @@ function setBoard() {
 	}
 }
 
-function setInicialLocationAndMove() {
+function setInicialLocation() {
     let locations = document.querySelectorAll('#grid div')
-    //console.log(locations)
     let cell = 0
     for (const el of locations) {
         el.innerHTML = cell
         cell++
     }
-
-    let tail = dogBody.pop()
-    locations[tail].classList.remove('body')
-    dogBody.unshift(dogBody[0] + 1)
+    console.log(locations[dogBody])
     locations[dogBody[0]].classList.add('body') 
+}
+
+function setDirection() {
+    let locations = document.querySelectorAll('#grid div')
+    let tail = dogBody.pop()
+	console.log(tail)
+	locations[tail].classList.remove('body')
+	dogBody.unshift(dogBody[0] + 1)
+	locations[dogBody[0]].classList.add('body')
 }
 
 

@@ -5,7 +5,6 @@ let score
 let speed
 let grid = []
 let dogBody = [0, 0, 0]
-let move = 1
 
 /* cached elements */
 const startScreen = document.querySelector('.start')
@@ -15,12 +14,24 @@ const board = document.querySelector('#grid')
 
 /* event listeners */
 btnStart.addEventListener('click', handleStartBtn)
-
+document.addEventListener('keydown', handlePressedKey)
 
 /* functions */
 function handleStartBtn() {
 	startScreen.classList.add('hidden')
-	//setInterval(setInicialLocation, 1000)
+	setInterval(setInicialLocationAndMove, 1000)
+}
+
+function handlePressedKey(e) {
+    if (e.keyCode === 40) {
+		console.log('down arrow pressed')
+	} else if (e.keyCode === 39) {
+		console.log('right arrow pressed')
+	} else if (e.keyCode === 38) {
+		console.log('up arrow pressed')
+	} else if (e.keyCode === 37) {
+		console.log('left arrow pressed')
+	}
 }
 
 init()
@@ -32,7 +43,7 @@ function init() {
 function render() {
 	setGrid()
 	setBoard()
-	setInicialLocation()
+	setInicialLocationAndMove()
 	
 }
 
@@ -52,61 +63,30 @@ function setBoard() {
 		for (let row = 0; row < grid[column].length; row++) {
 			let newEl = document.createElement('div')
             board.appendChild(newEl)
-
 			if (column % 2 !== 0) {
-				row % 2 === 0 ? newEl.classList.add('dark-green') : newEl.classList.add('light-green')
+                row % 2 === 0 ? newEl.classList.add('dark-green') : newEl.classList.add('light-green')
 			} else {
-				row % 2 !== 0 ? newEl.classList.add('dark-green') : newEl.classList.add('light-green')
+                row % 2 !== 0 ? newEl.classList.add('dark-green') : newEl.classList.add('light-green')
 			}
 		}
 	}
 }
 
-function setInicialLocation() {
+function setInicialLocationAndMove() {
     let locations = document.querySelectorAll('#grid div')
-    console.log(locations)
-    // let cell = 0
-    // for (const el of locations) {
-    //     el.innerHTML = cell
-    //     cell++
-    // }
-
+    //console.log(locations)
+    let cell = 0
+    for (const el of locations) {
+        el.innerHTML = cell
+        cell++
+    }
 
     let tail = dogBody.pop()
-    locations[tail].classList.remove('dog-body')
-    dogBody.unshift(dogBody[0] + move)
-
-    locations[dogBody[0]].classList.add('dog-body') 
-
- 
-    
-    
-    
-    
-    
-    //locations[e].classList.add('dog-body')
-    
-    // for (let el = 0; el < locations.length; el++){
-    //     console.log(locations[el])
-    // }
-
+    locations[tail].classList.remove('body')
+    dogBody.unshift(dogBody[0] + 1)
+    locations[dogBody[0]].classList.add('body') 
 }
 
 
 
-// let next = 0
 
-// function move() {
-//     let locations = document.querySelectorAll('#grid div')
-//     console.log(locations[next])
-//     locations[next].classList.add('dog-body')
-
-//     next++
-// }
-
-
-
-// add class to snake body
-
-
-// remove class from snake body

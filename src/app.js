@@ -9,6 +9,7 @@ let direction
 let interval
 const numOfsquares = 20
 
+
 /* cached elements */
 const startScreen = document.querySelector('.start')
 const btnStart = document.querySelector('.start button')
@@ -16,6 +17,7 @@ const count = document.querySelector('.start span')
 const board = document.querySelector('#grid')
 const endScreen = document.querySelector('.end')
 const btnPlayAgain = document.querySelector('.end button')
+const food = document.createElement('img')
 
 /* event listeners */
 btnStart.addEventListener('click', handleStartBtn)
@@ -54,14 +56,18 @@ init()
 
 function init() {
 	speed = 800
-	direction = 1
+    direction = 1
+    food.src = '../images/food.png'
+    food.alt = 'Dog treat'
+    food.classList.add('food')
 	render()
 }
 
 function render() {
 	setGrid()
 	setBoard()
-	startPosition()
+    startPosition()
+    setTreat()
 }
 
 function setGrid() {
@@ -105,7 +111,6 @@ function checkNextStep() {
 	const locations = document.querySelectorAll('#grid div')
 	if (checkGameOver(locations)) {
 		clearInterval(interval)
-		console.log('Game over - you hit a wall!')
 		showPlayAgain()
 		return
 	} else {
@@ -114,21 +119,10 @@ function checkNextStep() {
 }
 
 function setDirection(locations) {
-	/* Grab the last element of the dogBody
-    tail -> 152
-    Access the tail index -> 152 = div with number 153 on it
-    remove the class body from the div 153
-    */
 	let tail = dogBody.pop()
 	locations[tail].classList.remove('body')
-	/* Add the first element + the direction of dogBody
-    at the beginning of its own array
-    (154 + 1) dogBody = [155, 154, 153, 152]
-    (154 + 15) dogBody = [169, 154, 153, 152]
-    */
 	dogBody.unshift(dogBody[0] + direction)
 	console.log(dogBody)
-
 	locations[dogBody[0]].classList.add('body')
 }
 
@@ -156,4 +150,31 @@ function restart() {
 		element.classList.remove('body')
 	}
 	startPosition(locations)
+}
+
+function grow() {
+    let food = 0
+    //every time I eat food will increase + 1
+    //add an extra piece of body to the dog
+}
+
+function setTreat() {
+    const locations = document.querySelectorAll('#grid div')
+
+    const treatLocation = Math.floor(Math.random() * locations.length + 1)
+    console.log(treatLocation)
+
+    for (const element of locations) {
+        if (element.classList.contains('body')) {
+            console.log(element)
+        }
+    }
+ 
+    console.log(locations[treatLocation])
+    locations[treatLocation].classList.add('relative')
+    locations[treatLocation].append(food)
+
+    // check that it's not equal treatLocation
+    // if it is: run treatLocation again
+    // if it's not: add the treat to that cell
 }

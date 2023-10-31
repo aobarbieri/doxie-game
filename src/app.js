@@ -3,12 +3,11 @@
 /* state variables */
 let score
 let speed
-let grid = []
+const grid = []
 let dogBody = [284, 283, 282]
-let direction = 1
+let direction
 let interval
-let numOfsquares
-let locationsList
+const numOfsquares = 20
 
 /* cached elements */
 const startScreen = document.querySelector('.start')
@@ -16,16 +15,17 @@ const btnStart = document.querySelector('.start button')
 const count = document.querySelector('.start span')
 const board = document.querySelector('#grid')
 const endScreen = document.querySelector('.end')
+const btnPlayAgain = document.querySelector('.end button')
 
 /* event listeners */
 btnStart.addEventListener('click', handleStartBtn)
 document.addEventListener('keydown', handlePressedKey)
+btnPlayAgain.addEventListener('click', handlePlayAgain)
 
 /* functions */
-
 function handleStartBtn() {
 	startScreen.classList.add('hidden')
-	interval = setInterval(checkNextStep, 1000)
+	interval = setInterval(checkNextStep, speed)
 }
 
 function handlePressedKey(e) {
@@ -44,26 +44,24 @@ function handlePressedKey(e) {
 	}
 }
 
+function handlePlayAgain() {
+    endScreen.classList.add('hidden')
+    restart()
+    interval = setInterval(checkNextStep, speed)
+}
+
 init()
 
 function init() {
-	numOfsquares = 20
+    speed = 800
+    direction = 1
 	render()
 }
 
 function render() {
 	setGrid()
-	setBoard()
-	let startPosition = document.querySelectorAll('#grid div')
-	startPosition[dogBody[0]].classList.add('body')
-	startPosition[dogBody[1]].classList.add('body')
-	startPosition[dogBody[2]].classList.add('body')
-
-	// let cell = 0
-	// for (const el of startPosition) {
-	// 	el.innerHTML = cell
-	// 	cell++
-	// }
+    setBoard()
+	startPosition()
 }
 
 function setGrid() {
@@ -91,21 +89,30 @@ function setBoard() {
 	}
 }
 
-function checkNextStep() {
-	let locations = document.querySelectorAll('#grid div')
+function startPosition() {
+    const startPosition = document.querySelectorAll('#grid div')
+	startPosition[dogBody[0]].classList.add('body')
+	startPosition[dogBody[1]].classList.add('body')
+	startPosition[dogBody[2]].classList.add('body')
+	// let cell = 0
+	// for (const el of startPosition) {
+	// 	el.innerHTML = cell
+	// 	cell++
+	// }
+}
 
-	if (gameOver(locations)) {
-		console.log('Game over - you hit a wall!')
-		return clearInterval(interval)
+function checkNextStep() {
+    const locations = document.querySelectorAll('#grid div')
+
+	if (checkGameOver(locations)) {
+        console.log('Game over - you hit a wall!')
+        clearInterval(interval)
+        showPlayAgain()
+        return 
+        
 	} else {
 		setDirection(locations)
 	}
-}
-
-function gameOver(locations) {
-	if ([dogBody[0]] < 0 || [dogBody[0]] > locations.length || [dogBody[0]] % numOfsquares === 0 || [dogBody[0]] % 9 === 9) {
-		return true
-	} else return false
 }
 
 function setDirection(locations) {
@@ -125,4 +132,24 @@ function setDirection(locations) {
 	console.log(dogBody)
 
 	locations[dogBody[0]].classList.add('body')
+}
+
+function checkGameOver(locations) {
+	if ([dogBody[0]] < 0 || [dogBody[0]] > locations.length || [dogBody[0]] % numOfsquares === 0 || [dogBody[0]] % 9 === 9) {
+		return true
+	} else return false
+}
+
+function showPlayAgain() {
+	endScreen.classList.remove('hidden')
+}
+
+function restart() {
+	direction = 1
+	dogBody = [284, 283, 282]
+	const locations = document.querySelectorAll('#grid div')
+	for (const element of locations) {
+		element.classList.remove('body')
+	}
+	startPosition(locations)
 }

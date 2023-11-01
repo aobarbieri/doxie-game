@@ -19,6 +19,7 @@ const board = document.querySelector('#grid')
 const endScreen = document.querySelector('.end')
 const btnPlayAgain = document.querySelector('.end button')
 const food = document.createElement('img')
+const scoreEl = document.getElementById('score')
 
 /* event listeners */
 btnStart.addEventListener('click', handleStartBtn)
@@ -53,10 +54,11 @@ init()
 
 function init() {
 	speed = 350
-    direction = 1
+	direction = 1
+	score = 0
     food.src = './images/food.png'
     food.alt = 'Dog treat'
-    food.classList.add('food')
+	food.classList.add('food')
 	render()
 }
 
@@ -115,7 +117,7 @@ function setDirection(locations) {
 	locations[tail].classList.remove('body')
 	dogBody.unshift(dogBody[0] + direction)
 	locations[dogBody[0]].classList.add('body')
-	grow()
+	growAndUpdateScore()
 }
 
 function checkGameOver(locations) {
@@ -136,12 +138,15 @@ function showPlayAgain() {
 
 function restart() {
 	direction = 1
+	score = 0
+	scoreEl.textContent = score
 	dogBody = [284, 283, 282]
 	const locations = document.querySelectorAll('#grid div')
 	for (const element of locations) {
 		element.classList.remove('body')
 	}
 	startPosition(locations)
+	setTreatLocation()
 }
 
 function generateRandom(locations) {
@@ -151,18 +156,22 @@ function generateRandom(locations) {
 
 function setTreatLocation() {
 	const locations = document.querySelectorAll('#grid div')
-	// check that it's not equal treatLocation
 	do {
 		treatPlacement = generateRandom(locations)
 	} while (locations[treatPlacement].classList.contains('body'))
-	// Add treat to the board
 	locations[treatPlacement].classList.add('relative')
 	locations[treatPlacement].append(food)
 }
 
-function grow() {
+function growAndUpdateScore() {
 	if (dogBody[0] === treatPlacement) {
 		dogBody.push(tail)
+		score++
+		scoreEl.textContent = score
 		setTreatLocation()
 	}
 }
+
+//TODO
+//get the index of the first element and the last element
+//attach head and tail using css - relative/absolute

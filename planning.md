@@ -15,7 +15,6 @@ https://www.figma.com/file/lOJ2dlLjrZpje13gi3NXQi/Dachshund-Game-(Snake)?type=de
 
 
 # App's functionality
-- As a player, I want to guide the dog to eat the treat so it can grow longer.
 - As a player, I want to have my score visibile above the grid.
 - As a SE, I want the user to win when there is not more room for the dog to grow.
 
@@ -23,6 +22,7 @@ https://www.figma.com/file/lOJ2dlLjrZpje13gi3NXQi/Dachshund-Game-(Snake)?type=de
 - DONE - As a player, I want to control the character using the keyboard arrow.
 - DONE - As a SE, I want the treats to be placed randomly on the screen 
 - DONE - As a player, I want to play again after winning or losing.
+- DONE - As a player, I want to guide the dog to eat the treat so it can grow longer.
 
 
 # Pseudocode 
@@ -51,3 +51,4 @@ $ DONE - Display treats on the grid based on random location
 - As a aplayer, I want to be shown a count down to the start of the game.
 - As a player, I want the dog to move faster each time it eats so the game becomes more challenging.
 - As a player, I want to select which dog I want to play with (Tyler of Taylor).
+- Board as a table

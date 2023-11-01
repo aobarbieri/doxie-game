@@ -127,12 +127,13 @@ function setDirection(locations) {
 }
 
 function checkGameOver(locations) {
-	//locations[dogBody[0] + direction].classList.contains('body')
+	console.log([dogBody[0]])
 	if (
-		[dogBody[0]] - numOfsquares < 0 ||
-		parseInt([dogBody[0]]) + numOfsquares > locations.length ||
-		[dogBody[0]] % numOfsquares === 0 ||
-		[dogBody[0]] % numOfsquares === numOfsquares - 1
+		[dogBody[0]] - numOfsquares < 0 && direction === -numOfsquares ||
+		parseInt([dogBody[0]]) + numOfsquares >= locations.length && direction === numOfsquares ||
+		[dogBody[0]] % numOfsquares === 0 && direction === -1 ||
+		[dogBody[0]] % numOfsquares === numOfsquares - 1 && direction === 1||
+		locations[dogBody[0] + direction].classList.contains('body')
 	) {
 		return true
 	} else return false

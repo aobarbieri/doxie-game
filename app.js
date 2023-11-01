@@ -9,7 +9,6 @@ let direction
 let interval
 const numOfsquares = 20
 
-
 /* cached elements */
 const startScreen = document.querySelector('.start')
 const btnStart = document.querySelector('.start button')
@@ -32,16 +31,12 @@ function handleStartBtn() {
 
 function handlePressedKey(e) {
 	if (e.keyCode === 40) {
-		//down
 		direction = numOfsquares
 	} else if (e.keyCode === 39) {
-		//right
 		direction = 1
 	} else if (e.keyCode === 38) {
-		//up
 		direction = -numOfsquares
 	} else if (e.keyCode === 37) {
-		//left
 		direction = -1
 	}
 }
@@ -67,7 +62,7 @@ function render() {
 	setGrid()
 	setBoard()
     startPosition()
-    //setTreat()
+    setTreatLocation()
 }
 
 function setGrid() {
@@ -127,7 +122,6 @@ function setDirection(locations) {
 }
 
 function checkGameOver(locations) {
-	console.log([dogBody[0]])
 	if (
 		[dogBody[0]] - numOfsquares < 0 && direction === -numOfsquares ||
 		parseInt([dogBody[0]]) + numOfsquares >= locations.length && direction === numOfsquares ||
@@ -153,29 +147,28 @@ function restart() {
 	startPosition(locations)
 }
 
-function grow() {
-    let food = 0
-    //every time I eat food will increase + 1
-    //add an extra piece of body to the dog
+function generateRandom(locations) {
+	const randomIndex = Math.floor(Math.random() * (locations.length + 1))
+	return randomIndex
 }
 
-function setTreat() {
-    const locations = document.querySelectorAll('#grid div')
+function setTreatLocation() {
+	const locations = document.querySelectorAll('#grid div')
+	
+	// check that it's not equal treatLocation
+	let treatPlacement
+	do {
+		treatPlacement = generateRandom(locations)
+	} while (locations[treatPlacement].classList.contains('body'))
+	// Add treat to the board
+	locations[treatPlacement].classList.add('relative')
+	locations[treatPlacement].append(food)
+}
 
-    const treatLocation = Math.floor(Math.random() * locations.length + 1)
-    console.log(treatLocation)
+function grow() {
+	let food = 0
+	//if body class cell hits div cell that contains img food as a child
+	//generate food in a different location
+	//grow the dog +1 and continue moving
 
-    for (const element of locations) {
-        if (element.classList.contains('body')) {
-            console.log(element)
-        }
-    }
- 
-    console.log(locations[treatLocation])
-    locations[treatLocation].classList.add('relative')
-    locations[treatLocation].append(food)
-
-    // check that it's not equal treatLocation
-    // if it is: run treatLocation again
-    // if it's not: add the treat to that cell
 }

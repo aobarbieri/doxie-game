@@ -50,7 +50,7 @@ body {
     color    : #fff;
 }
 
-.score-food {
+.score-icon {
     width : 2rem;
     height: 1.082rem;
 }
@@ -134,9 +134,9 @@ body {
 
 .food {
     position: absolute;
-    width   : 2rem;
+    width   : 1.7rem;
     height  : 1.082rem;
-    margin: .37rem 0;
+    margin: .375rem 0 .375rem .0625rem;
 }
 
 .hidden {

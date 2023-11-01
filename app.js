@@ -206,7 +206,11 @@ function growAndUpdateScore() {
 	}
 }
 
-//TODO
-//get the index of the first element and the last element
-//attach head and tail using css - relative/absolute
+/*
+Rotate the head
+-> Difference between Head index and the Next location Index:
+if the difference is greater than 1: rotate 90deg
 
+if the difference is less than 1: rotate
+
+*/

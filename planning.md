@@ -15,9 +15,7 @@ https://www.figma.com/file/lOJ2dlLjrZpje13gi3NXQi/Dachshund-Game-(Snake)?type=de
 
 
 # App's functionality
-- As a player, I want to have my score visibile above the grid.
-- As a SE, I want the user to win when there is not more room for the dog to grow.
-
+- DONE - As a player, I want to have my score visibile above the grid.
 - DONE - As a SE, I want the game to end when the player hits the wall or bites the body.
 - DONE - As a player, I want to control the character using the keyboard arrow.
 - DONE - As a SE, I want the treats to be placed randomly on the screen 
@@ -26,10 +24,6 @@ https://www.figma.com/file/lOJ2dlLjrZpje13gi3NXQi/Dachshund-Game-(Snake)?type=de
 
 
 # Pseudocode 
-$ Allow the dog to eat the treats
-  - Treats disappear, and reappear on a random location
-  - Updates the score -> treat count increases on the board
-  
 $ DONE - Player clicks on a button to start the game 
   DONE - The dog starts moving
 
@@ -45,10 +39,18 @@ $ DONE - Check if the dog hit a wall or bite itself (every time before each move
 
 $ DONE - Display treats on the grid based on random location
 
+$ DONE - Allow the dog to eat the treats
+  - Treats disappear, and reappear on a random location
+  - Updates the score -> treat count increases on the board
+
 
 
 # ICEBOX 
+- Add a crunch sound for when the dog eats the treat
+- Add a fun background music
+  - Allow the user to music the music if desired
 - As a aplayer, I want to be shown a count down to the start of the game.
 - As a player, I want the dog to move faster each time it eats so the game becomes more challenging.
 - As a player, I want to select which dog I want to play with (Tyler of Taylor).
 - Board as a table
+- As a SE, I want the user to win and see a fun message, when there is not more room for the dog to grow.

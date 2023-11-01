@@ -20,6 +20,8 @@ const endScreen = document.querySelector('.end')
 const btnPlayAgain = document.querySelector('.end button')
 const food = document.createElement('img')
 const scoreEl = document.getElementById('score')
+const headEl = document.createElement('img')
+const tailEl = document.createElement('img')
 
 /* event listeners */
 btnStart.addEventListener('click', handleStartBtn)
@@ -53,12 +55,18 @@ function handlePlayAgain() {
 init()
 
 function init() {
-	speed = 350
+	speed = 300
 	direction = 1
 	score = 0
     food.src = './images/food.png'
     food.alt = 'Dog treat'
 	food.classList.add('food')
+	headEl.src = './images/doxie-head.svg'
+	headEl.alt = 'Dog head'
+	headEl.classList.add('head')
+	tailEl.src = './images/doxie-tail.svg'
+	tailEl.alt = 'Dog tail'
+	tailEl.classList.add('tail')
 	render()
 }
 
@@ -96,9 +104,20 @@ function setBoard() {
 
 function startPosition() {
 	const startPosition = document.querySelectorAll('#grid div')
-	startPosition[dogBody[0]].classList.add('body')
-	startPosition[dogBody[1]].classList.add('body')
-	startPosition[dogBody[2]].classList.add('body')
+	// head
+	let parentHead = startPosition[dogBody[0]]
+	parentHead.classList.add('relative')
+	parentHead.appendChild(headEl)
+
+	// body
+	let parentBody = startPosition[dogBody[1]]
+	parentBody.classList.add('body')
+
+	// tail
+	let parentTail = startPosition[dogBody[dogBody.length - 1]]
+	parentTail.classList.add('relative')
+	parentTail.appendChild(tailEl)
+
 }
 
 function checkNextStep() {
@@ -116,7 +135,22 @@ function setDirection(locations) {
 	tail = dogBody.pop()
 	locations[tail].classList.remove('body')
 	dogBody.unshift(dogBody[0] + direction)
-	locations[dogBody[0]].classList.add('body')
+
+	//head
+	let parentHead = locations[dogBody[0]]
+	parentHead.classList.add('relative')
+	parentHead.appendChild(headEl)
+	
+	//body
+	let parentBody = locations[dogBody[0] - direction]
+	parentBody.classList.add('body')
+	
+	//tail
+	let parentTail = locations[dogBody[dogBody.length - 1]]
+	parentTail.classList.add('relative')
+	parentTail.classList.remove('body')
+	parentTail.appendChild(tailEl)
+	
 	growAndUpdateScore()
 }
 
@@ -175,3 +209,4 @@ function growAndUpdateScore() {
 //TODO
 //get the index of the first element and the last element
 //attach head and tail using css - relative/absolute
+

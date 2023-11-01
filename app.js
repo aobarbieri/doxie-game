@@ -57,7 +57,7 @@ init()
 function init() {
 	speed = 800
     direction = 1
-    food.src = '../images/food.png'
+    food.src = './images/food.png'
     food.alt = 'Dog treat'
     food.classList.add('food')
 	render()
@@ -67,7 +67,7 @@ function render() {
 	setGrid()
 	setBoard()
     startPosition()
-    setTreat()
+    //setTreat()
 }
 
 function setGrid() {
@@ -127,8 +127,8 @@ function setDirection(locations) {
 }
 
 function checkGameOver(locations) {
+	//locations[dogBody[0] + direction].classList.contains('body')
 	if (
-		locations[dogBody[0] + direction].classList.contains('body') ||
 		[dogBody[0]] - numOfsquares < 0 ||
 		parseInt([dogBody[0]]) + numOfsquares > locations.length ||
 		[dogBody[0]] % numOfsquares === 0 ||

@@ -127,7 +127,7 @@ body {
 }
 
 .end button:before {
-    content      : url('../images/play-again-icon.svg');
+    content      : url('./images/play-again-icon.svg');
     margin-bottom: -4px;
     padding-right: 5px;
 }

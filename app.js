@@ -8,6 +8,7 @@ let dogBody = [284, 283, 282]
 let direction
 let interval
 const numOfsquares = 20
+let treatPlacement
 
 /* cached elements */
 const startScreen = document.querySelector('.start')
@@ -95,11 +96,6 @@ function startPosition() {
 	startPosition[dogBody[0]].classList.add('body')
 	startPosition[dogBody[1]].classList.add('body')
 	startPosition[dogBody[2]].classList.add('body')
-	// let cell = 0
-	// for (const el of startPosition) {
-	// 	el.innerHTML = cell
-	// 	cell++
-	// }
 }
 
 function checkNextStep() {
@@ -119,6 +115,8 @@ function setDirection(locations) {
 	dogBody.unshift(dogBody[0] + direction)
 	console.log(dogBody)
 	locations[dogBody[0]].classList.add('body')
+
+	grow(locations)
 }
 
 function checkGameOver(locations) {
@@ -156,7 +154,6 @@ function setTreatLocation() {
 	const locations = document.querySelectorAll('#grid div')
 	
 	// check that it's not equal treatLocation
-	let treatPlacement
 	do {
 		treatPlacement = generateRandom(locations)
 	} while (locations[treatPlacement].classList.contains('body'))
@@ -165,10 +162,13 @@ function setTreatLocation() {
 	locations[treatPlacement].append(food)
 }
 
-function grow() {
+function grow(locations) {
 	let food = 0
 	//if body class cell hits div cell that contains img food as a child
-	//generate food in a different location
-	//grow the dog +1 and continue moving
-
+	if (dogBody[0] === treatPlacement) {
+		//grow the dog +1 and continue moving
+		console.log('Grooooooow!')
+		//generate food in a different location
+		setTreatLocation()
+	}
 }

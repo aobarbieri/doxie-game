@@ -9,6 +9,7 @@ let direction
 let interval
 const numOfsquares = 20
 let treatPlacement
+let tail
 
 /* cached elements */
 const startScreen = document.querySelector('.start')
@@ -51,7 +52,7 @@ function handlePlayAgain() {
 init()
 
 function init() {
-	speed = 800
+	speed = 350
     direction = 1
     food.src = './images/food.png'
     food.alt = 'Dog treat'
@@ -110,13 +111,11 @@ function checkNextStep() {
 }
 
 function setDirection(locations) {
-	let tail = dogBody.pop()
+	tail = dogBody.pop()
 	locations[tail].classList.remove('body')
 	dogBody.unshift(dogBody[0] + direction)
-	console.log(dogBody)
 	locations[dogBody[0]].classList.add('body')
-
-	grow(locations)
+	grow()
 }
 
 function checkGameOver(locations) {
@@ -152,7 +151,6 @@ function generateRandom(locations) {
 
 function setTreatLocation() {
 	const locations = document.querySelectorAll('#grid div')
-	
 	// check that it's not equal treatLocation
 	do {
 		treatPlacement = generateRandom(locations)
@@ -162,13 +160,9 @@ function setTreatLocation() {
 	locations[treatPlacement].append(food)
 }
 
-function grow(locations) {
-	let food = 0
-	//if body class cell hits div cell that contains img food as a child
+function grow() {
 	if (dogBody[0] === treatPlacement) {
-		//grow the dog +1 and continue moving
-		console.log('Grooooooow!')
-		//generate food in a different location
+		dogBody.push(tail)
 		setTreatLocation()
 	}
 }

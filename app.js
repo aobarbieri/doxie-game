@@ -10,6 +10,7 @@ let interval
 const numOfsquares = 20
 let treatPlacement
 let tail
+let lastKeyPressed
 
 /* cached elements */
 const startScreen = document.querySelector('.start')
@@ -35,14 +36,26 @@ function handleStartBtn() {
 }
 
 function handlePressedKey(e) {
-	if (e.keyCode === 40) {
-		direction = numOfsquares
+	if (e.keyCode === 37) {
+		if (lastKeyPressed !== 39) {
+			direction = -1
+			lastKeyPressed = 37
+		}
+	} else if (e.keyCode === 40) {
+		if (lastKeyPressed !== 38) {
+			direction = numOfsquares
+			lastKeyPressed = 40
+		}
 	} else if (e.keyCode === 39) {
-		direction = 1
+		if (lastKeyPressed !== 37) {
+			direction = 1
+			lastKeyPressed = 39
+		}
 	} else if (e.keyCode === 38) {
-		direction = -numOfsquares
-	} else if (e.keyCode === 37) {
-		direction = -1
+		if (lastKeyPressed !== 40) {
+			direction = -numOfsquares
+			lastKeyPressed = 38
+		}
 	}
 }
 
@@ -58,8 +71,9 @@ function init() {
 	speed = 300
 	direction = 1
 	score = 0
-    food.src = './images/food.png'
-    food.alt = 'Dog treat'
+	lastKeyPressed = 39
+	food.src = './images/food.png'
+	food.alt = 'Dog treat'
 	food.classList.add('food')
 	headEl.src = './images/doxie-head.svg'
 	headEl.alt = 'Dog head'
@@ -75,7 +89,7 @@ function render() {
 	setBoard()
 	startPosition()
 	const locations = document.querySelectorAll('#grid div')
-    setTreatLocation(locations)
+	setTreatLocation(locations)
 }
 
 function setGrid() {
@@ -148,10 +162,10 @@ function setDirection(locations) {
 
 function checkGameOver(locations) {
 	if (
-		[dogBody[0]] - numOfsquares < 0 && direction === -numOfsquares ||
-		parseInt([dogBody[0]]) + numOfsquares >= locations.length && direction === numOfsquares ||
-		[dogBody[0]] % numOfsquares === 0 && direction === -1 ||
-		[dogBody[0]] % numOfsquares === numOfsquares - 1 && direction === 1||
+		([dogBody[0]] - numOfsquares < 0 && direction === -numOfsquares) ||
+		(parseInt([dogBody[0]]) + numOfsquares >= locations.length && direction === numOfsquares) ||
+		([dogBody[0]] % numOfsquares === 0 && direction === -1) ||
+		([dogBody[0]] % numOfsquares === numOfsquares - 1 && direction === 1) ||
 		locations[dogBody[0] + direction].classList.contains('dog')
 	) {
 		return true
@@ -165,11 +179,12 @@ function showPlayAgain() {
 function restart() {
 	direction = 1
 	score = 0
+	lastKeyPressed = 39
 	scoreEl.textContent = score
 	dogBody = [284, 283, 282]
 	const locations = document.querySelectorAll('#grid div')
 	for (const element of locations) {
-		element.classList.remove('dog','body')
+		element.classList.remove('dog', 'body')
 	}
 	startPosition(locations)
 	setTreatLocation(locations)
@@ -206,5 +221,5 @@ if the difference is less than 1: rotate
 
 */
 
-//currentBody is to keep track of the body location
+//dog is to keep track of the body location
 //body is to add bg color to the cell where the body location is

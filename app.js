@@ -78,7 +78,7 @@ function init() {
 	direction = 1
 	score = 0
 	lastKeyPressed = 39
-	food.src = './images/food.png'
+	food.src = './images/food.svg'
 	food.alt = 'Dog treat'
 	food.classList.add('food')
 	headEl.src = './images/doxie-head.svg'

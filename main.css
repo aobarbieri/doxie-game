@@ -162,12 +162,10 @@ body {
 
 .head {
     left: -10px;
-    bottom: -1px;
 }
 
 .tail {
     left: -50%;
-    bottom: -1px;
 }
 
 @keyframes pulse-white {
@@ -189,12 +187,6 @@ body {
 
 .animate {
     animation: pulse-white 2s infinite;
-}
-
-.remove-rotate {
-    transform        : none;
-    -webkit-transform: none;
-    -moz-transform   : none;
 }
 
 .rotate90 {

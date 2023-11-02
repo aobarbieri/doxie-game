@@ -211,7 +211,7 @@ function setTreatLocation(locations) {
 			count++
 		}
 	}
-	if (count > 398 || score >= 5) {
+	if (count > 398 || score >= 70) {
 		setWinner()
 	} else {
 		do {

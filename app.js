@@ -169,7 +169,7 @@ function restart() {
 	dogBody = [284, 283, 282]
 	const locations = document.querySelectorAll('#grid div')
 	for (const element of locations) {
-		element.classList.remove('dog')
+		element.classList.remove('dog','body')
 	}
 	startPosition(locations)
 	setTreatLocation(locations)
@@ -183,10 +183,7 @@ function generateRandom(locations) {
 function setTreatLocation(locations) {
 	do {
 		treatPlacement = generateRandom(locations)
-		console.log(treatPlacement)
-	} while (locations[treatPlacement].classList.contains('dog')) {
-		console.log(locations[treatPlacement])
-	}
+	} while (locations[treatPlacement].classList.contains('dog'))
 	locations[treatPlacement].classList.add('relative')
 	locations[treatPlacement].append(food)
 }

@@ -103,22 +103,25 @@ function setBoard() {
 	}
 }
 
-function startPosition() {
-	const startPosition = document.querySelectorAll('#grid div')
+function setDogBody(locations) {
 	// head
-	let parentHead = startPosition[dogBody[0]]
+	let parentHead = locations[dogBody[0]]
 	parentHead.classList.add('relative', 'dog')
 	parentHead.appendChild(headEl)
 
+	// tail
+	let parentTail = locations[dogBody[dogBody.length - 1]]
+	parentTail.classList.add('relative', 'dog')
+	parentTail.classList.remove('body')
+	parentTail.appendChild(tailEl)
+}
+
+function startPosition() {
+	const startPosition = document.querySelectorAll('#grid div')
+	setDogBody(startPosition)
 	// body
 	let parentBody = startPosition[dogBody[1]]
 	parentBody.classList.add('body', 'dog')
-
-	// tail
-	let parentTail = startPosition[dogBody[dogBody.length - 1]]
-	parentTail.classList.add('relative', 'dog')
-	parentTail.appendChild(tailEl)
-
 }
 
 function checkNextStep() {
@@ -136,22 +139,10 @@ function setDirection(locations) {
 	tail = dogBody.pop()
 	locations[tail].classList.remove('body', 'dog', 'relative')
 	dogBody.unshift(dogBody[0] + direction)
-
-	//head
-	let parentHead = locations[dogBody[0]]
-	parentHead.classList.add('relative', 'dog')
-	parentHead.appendChild(headEl)
-	
+	setDogBody(locations)
 	//body
 	let parentBody = locations[dogBody[0] - direction]
 	parentBody.classList.add('body', 'dog')
-	
-	//tail
-	let parentTail = locations[dogBody[dogBody.length - 1]]
-	parentTail.classList.add('relative', 'dog')
-	parentTail.classList.remove('body')
-	parentTail.appendChild(tailEl)
-	
 	growAndUpdateScore(locations)
 }
 

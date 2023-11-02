@@ -162,10 +162,6 @@ body {
     left: -50%;
 }
 
-.animate {
-    animation: pulse-white 2s infinite;
-}
-
 @keyframes pulse-white {
     0% {
         transform : scale(0.95);
@@ -181,6 +177,10 @@ body {
         transform : scale(0.95);
         box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
     }
+}
+
+.animate {
+    animation: pulse-white 2s infinite;
 }
 
 .rotate90 {

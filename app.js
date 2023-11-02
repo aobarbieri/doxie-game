@@ -218,8 +218,15 @@ function growAndUpdateScore(locations) {
 	}
 }
 
+
 /*
-Rotate the head
+DOUBLE CHECK
+Play the game! If necessary, manipulate the values of variables in the console to ensure a quick win or loss.
+render win/loss messages in HTML
+*/
+
+/*
+TODO - Rotate the head and tail
 -> Difference between Head index and the Next location Index:
 if the difference is greater than 1: rotate 90deg
 
@@ -227,5 +234,3 @@ if the difference is less than 1: rotate
 
 */
 
-//dog is to keep track of the body location
-//body is to add bg color to the cell where the body location is

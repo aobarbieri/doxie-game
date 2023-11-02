@@ -149,17 +149,25 @@ body {
 
 .head,
 .tail {
+    width: fit-content;
     position: absolute;
     z-index : 9;
     overflow: visible;
+    right   : 0;
+    left    : 0;
+    top     : 0;
+    bottom  : 0;
+    margin  : auto;
 }
 
 .head {
-    top: -5px;
+    left: -10px;
+    bottom: -1px;
 }
 
 .tail {
     left: -50%;
+    bottom: -1px;
 }
 
 @keyframes pulse-white {
@@ -183,26 +191,26 @@ body {
     animation: pulse-white 2s infinite;
 }
 
+.remove-rotate {
+    transform        : none;
+    -webkit-transform: none;
+    -moz-transform   : none;
+}
+
 .rotate90 {
     transform        : rotate(90deg);
     -webkit-transform: rotate(90deg);
     -moz-transform   : rotate(90deg);
 }
 
+.rotate-90 {
+    transform        : rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    -moz-transform   : rotate(-90deg);
+}
+
 .rotate180 {
     transform        : rotate(180deg);
     -webkit-transform: rotate(180deg);
     -moz-transform   : rotate(180deg);
-}
-
-.rotate270 {
-    transform        : rotate(270deg);
-    -webkit-transform: rotate(270deg);
-    -moz-transform   : rotate(270deg);
-}
-
-.rotate360 {
-    transform        : rotate(360deg);
-    -webkit-transform: rotate(360deg);
-    -moz-transform   : rotate(360deg);
 }

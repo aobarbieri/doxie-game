@@ -2,9 +2,9 @@
 
 /* state variables */
 let score
-let speed
+let speed = 300
 const grid = []
-let dogBody = [284, 283, 282]
+let dogBody = []
 let direction
 let interval
 const numOfsquares = 20
@@ -24,6 +24,17 @@ const scoreEl = document.getElementById('score')
 const headEl = document.createElement('img')
 const tailEl = document.createElement('img')
 const endGameMessage = document.querySelector('.end p')
+
+
+food.src = './images/food.svg'
+food.alt = 'Dog treat'
+food.classList.add('food')
+headEl.src = './images/doxie-head.svg'
+headEl.alt = 'Dog head'
+headEl.classList.add('head')
+tailEl.src = './images/doxie-tail.svg'
+tailEl.alt = 'Dog tail'
+tailEl.classList.add('tail')
 
 /* event listeners */
 btnStart.addEventListener('click', handleStartBtn)
@@ -64,38 +75,49 @@ function handlePressedKey(e) {
 			lastKeyPressed = 38
 		}
 	}
+
+	if (e.keyCode === 40 && (direction === 20 || direction === -20)) {
+		headEl.classList.add('rotate90')
+
+		headEl.classList.remove('rotate-90', 'rotate180')
+	} else if (e.keyCode === 38 && (direction === 20 || direction === -20)) {
+		headEl.classList.add('rotate-90')
+
+		headEl.classList.remove('rotate90', 'rotate180')
+	} else if (e.keyCode === 37 && (direction === 1 || direction === -1)) {
+		headEl.classList.add('rotate180')
+
+		headEl.classList.remove('rotate-90', 'rotate90')
+	} else if (e.keyCode === 39 && (direction === 1 || direction === -1)) {
+		headEl.classList.remove('rotate-90', 'rotate180', 'rotate90')
+	}
 }
 
 function handlePlayAgain() {
 	endScreen.classList.add('hidden')
 	restart()
+	render()
 	interval = setInterval(checkNextStep, speed)
 }
 
 init()
 
 function init() {
-	speed = 300
 	direction = 1
 	score = 0
 	lastKeyPressed = 39
-	food.src = './images/food.svg'
-	food.alt = 'Dog treat'
-	food.classList.add('food')
-	headEl.src = './images/doxie-head.svg'
-	headEl.alt = 'Dog head'
-	headEl.classList.add('head')
-	tailEl.src = './images/doxie-tail.svg'
-	tailEl.alt = 'Dog tail'
-	tailEl.classList.add('tail')
+	dogBody = [284, 283, 282]
+	setGrid()
+	setBoard()
 	render()
 }
 
 function render() {
-	setGrid()
-	setBoard()
-	startPosition()
 	const locations = document.querySelectorAll('#grid div')
+	for (const element of locations) {
+		element.classList.remove('dog', 'body')
+	}
+	startPosition(locations)
 	setTreatLocation(locations)
 }
 
@@ -124,6 +146,23 @@ function setBoard() {
 	}
 }
 
+function restart() {
+	direction = 1
+	score = 0
+	lastKeyPressed = 39
+	scoreEl.textContent = score
+	dogBody = [284, 283, 282]
+	headEl.classList.remove('rotate-90', 'rotate180', 'rotate90')
+}
+
+function startPosition(startPosition) {
+	//const startPosition = document.querySelectorAll('#grid div')
+	setDogBody(startPosition)
+	// body
+	let parentBody = startPosition[dogBody[1]]
+	parentBody.classList.add('body', 'dog')
+}
+
 function setDogBody(locations) {
 	// head
 	let parentHead = locations[dogBody[0]]
@@ -135,25 +174,6 @@ function setDogBody(locations) {
 	parentTail.classList.add('relative', 'dog')
 	parentTail.classList.remove('body')
 	parentTail.appendChild(tailEl)
-}
-
-function startPosition() {
-	const startPosition = document.querySelectorAll('#grid div')
-	setDogBody(startPosition)
-	// body
-	let parentBody = startPosition[dogBody[1]]
-	parentBody.classList.add('body', 'dog')
-}
-
-function checkNextStep() {
-	const locations = document.querySelectorAll('#grid div')
-	if (checkGameOver(locations)) {
-		clearInterval(interval)
-		showPlayAgain()
-		return
-	} else {
-		setDirection(locations)
-	}
 }
 
 function setDirection(locations) {
@@ -179,32 +199,6 @@ function checkGameOver(locations) {
 	} else return false
 }
 
-function setWinner() {
-	clearInterval(interval)
-	showPlayAgain()
-	endGameMessage.textContent = 'CONGRATS!'
-	return
-}
-
-function showPlayAgain() {
-	endScreen.classList.remove('hidden')
-	endGameMessage.textContent = 'Game over'
-}
-
-function restart() {
-	direction = 1
-	score = 0
-	lastKeyPressed = 39
-	scoreEl.textContent = score
-	dogBody = [284, 283, 282]
-	const locations = document.querySelectorAll('#grid div')
-	for (const element of locations) {
-		element.classList.remove('dog', 'body')
-	}
-	startPosition(locations)
-	setTreatLocation(locations)
-}
-
 function generateRandom(locations) {
 	const randomIndex = Math.floor(Math.random() * (locations.length + 1))
 	return randomIndex
@@ -217,7 +211,7 @@ function setTreatLocation(locations) {
 			count++
 		}
 	}
-	if (count > 398 || score >= 70) {
+	if (count > 398 || score >= 5) {
 		setWinner()
 	} else {
 		do {
@@ -237,21 +231,25 @@ function growAndUpdateScore(locations) {
 	}
 }
 
-/*
-DOUBLE CHECK
-Play the game! If necessary, manipulate the values of variables in the console to ensure a quick win or loss.
-render win/loss messages in HTML
+function checkNextStep() {
+	const locations = document.querySelectorAll('#grid div')
+	if (checkGameOver(locations)) {
+		clearInterval(interval)
+		showPlayAgain()
+		return
+	} else {
+		setDirection(locations)
+	}
+}
 
+function setWinner() {
+	clearInterval(interval)
+	showPlayAgain()
+	endGameMessage.textContent = 'CONGRATS!'
+	return
+}
 
-
-- add the class dog to all the cells and show a message Congrats you won! on the screen instead of game over
-*/
-
-/*
-TODO - Rotate the head and tail
--> Difference between Head index and the Next location Index:
-if the difference is greater than 1: rotate 90deg
-
-if the difference is less than 1: rotate
-
-*/
+function showPlayAgain() {
+	endScreen.classList.remove('hidden')
+	endGameMessage.textContent = 'Game over'
+}

@@ -73,8 +73,9 @@ function init() {
 function render() {
 	setGrid()
 	setBoard()
-    startPosition()
-    setTreatLocation()
+	startPosition()
+	const locations = document.querySelectorAll('#grid div')
+    setTreatLocation(locations)
 }
 
 function setGrid() {
@@ -106,16 +107,16 @@ function startPosition() {
 	const startPosition = document.querySelectorAll('#grid div')
 	// head
 	let parentHead = startPosition[dogBody[0]]
-	parentHead.classList.add('relative')
+	parentHead.classList.add('relative', 'dog')
 	parentHead.appendChild(headEl)
 
 	// body
 	let parentBody = startPosition[dogBody[1]]
-	parentBody.classList.add('body')
+	parentBody.classList.add('body', 'dog')
 
 	// tail
 	let parentTail = startPosition[dogBody[dogBody.length - 1]]
-	parentTail.classList.add('relative')
+	parentTail.classList.add('relative', 'dog')
 	parentTail.appendChild(tailEl)
 
 }
@@ -133,25 +134,25 @@ function checkNextStep() {
 
 function setDirection(locations) {
 	tail = dogBody.pop()
-	locations[tail].classList.remove('body')
+	locations[tail].classList.remove('body', 'dog', 'relative')
 	dogBody.unshift(dogBody[0] + direction)
 
 	//head
 	let parentHead = locations[dogBody[0]]
-	parentHead.classList.add('relative')
+	parentHead.classList.add('relative', 'dog')
 	parentHead.appendChild(headEl)
 	
 	//body
 	let parentBody = locations[dogBody[0] - direction]
-	parentBody.classList.add('body')
+	parentBody.classList.add('body', 'dog')
 	
 	//tail
 	let parentTail = locations[dogBody[dogBody.length - 1]]
-	parentTail.classList.add('relative')
+	parentTail.classList.add('relative', 'dog')
 	parentTail.classList.remove('body')
 	parentTail.appendChild(tailEl)
 	
-	growAndUpdateScore()
+	growAndUpdateScore(locations)
 }
 
 function checkGameOver(locations) {
@@ -160,7 +161,7 @@ function checkGameOver(locations) {
 		parseInt([dogBody[0]]) + numOfsquares >= locations.length && direction === numOfsquares ||
 		[dogBody[0]] % numOfsquares === 0 && direction === -1 ||
 		[dogBody[0]] % numOfsquares === numOfsquares - 1 && direction === 1||
-		locations[dogBody[0] + direction].classList.contains('body')
+		locations[dogBody[0] + direction].classList.contains('dog')
 	) {
 		return true
 	} else return false
@@ -177,10 +178,10 @@ function restart() {
 	dogBody = [284, 283, 282]
 	const locations = document.querySelectorAll('#grid div')
 	for (const element of locations) {
-		element.classList.remove('body')
+		element.classList.remove('dog')
 	}
 	startPosition(locations)
-	setTreatLocation()
+	setTreatLocation(locations)
 }
 
 function generateRandom(locations) {
@@ -188,21 +189,23 @@ function generateRandom(locations) {
 	return randomIndex
 }
 
-function setTreatLocation() {
-	const locations = document.querySelectorAll('#grid div')
+function setTreatLocation(locations) {
 	do {
 		treatPlacement = generateRandom(locations)
-	} while (locations[treatPlacement].classList.contains('body'))
+		console.log(treatPlacement)
+	} while (locations[treatPlacement].classList.contains('dog')) {
+		console.log(locations[treatPlacement])
+	}
 	locations[treatPlacement].classList.add('relative')
 	locations[treatPlacement].append(food)
 }
 
-function growAndUpdateScore() {
+function growAndUpdateScore(locations) {
 	if (dogBody[0] === treatPlacement) {
 		dogBody.push(tail)
 		score++
 		scoreEl.textContent = score
-		setTreatLocation()
+		setTreatLocation(locations)
 	}
 }
 
@@ -214,3 +217,6 @@ if the difference is greater than 1: rotate 90deg
 if the difference is less than 1: rotate
 
 */
+
+//currentBody is to keep track of the body location
+//body is to add bg color to the cell where the body location is

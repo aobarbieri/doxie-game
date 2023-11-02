@@ -23,6 +23,7 @@ const food = document.createElement('img')
 const scoreEl = document.getElementById('score')
 const headEl = document.createElement('img')
 const tailEl = document.createElement('img')
+const endGameMessage = document.querySelector('.end p')
 
 /* event listeners */
 btnStart.addEventListener('click', handleStartBtn)
@@ -178,8 +179,16 @@ function checkGameOver(locations) {
 	} else return false
 }
 
+function setWinner() {
+	clearInterval(interval)
+	showPlayAgain()
+	endGameMessage.textContent = 'CONGRATS!'
+	return
+}
+
 function showPlayAgain() {
 	endScreen.classList.remove('hidden')
+	endGameMessage.textContent = 'Game over'
 }
 
 function restart() {
@@ -202,11 +211,21 @@ function generateRandom(locations) {
 }
 
 function setTreatLocation(locations) {
-	do {
-		treatPlacement = generateRandom(locations)
-	} while (locations[treatPlacement].classList.contains('dog'))
-	locations[treatPlacement].classList.add('relative')
-	locations[treatPlacement].append(food)
+	let count = 0
+	for (const el of locations) {
+		if (el.classList.contains('dog')) {
+			count++
+		}
+	}
+	if (count > 398 || score >= 70) {
+		setWinner()
+	} else {
+		do {
+			treatPlacement = generateRandom(locations)
+		} while (locations[treatPlacement].classList.contains('dog'))
+		locations[treatPlacement].classList.add('relative')
+		locations[treatPlacement].append(food)
+	}
 }
 
 function growAndUpdateScore(locations) {
@@ -218,11 +237,14 @@ function growAndUpdateScore(locations) {
 	}
 }
 
-
 /*
 DOUBLE CHECK
 Play the game! If necessary, manipulate the values of variables in the console to ensure a quick win or loss.
 render win/loss messages in HTML
+
+
+
+- add the class dog to all the cells and show a message Congrats you won! on the screen instead of game over
 */
 
 /*
@@ -233,4 +255,3 @@ if the difference is greater than 1: rotate 90deg
 if the difference is less than 1: rotate
 
 */
-

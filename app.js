@@ -36,6 +36,12 @@ function handleStartBtn() {
 }
 
 function handlePressedKey(e) {
+	if (e.keyCode === 13 || e.keyCode === 32) {
+		if (interval === undefined) {
+			handleStartBtn()
+		}
+	}
+
 	if (e.keyCode === 37) {
 		if (lastKeyPressed !== 39) {
 			direction = -1

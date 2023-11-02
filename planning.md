@@ -48,9 +48,8 @@ $ DONE - Allow the dog to eat the treats
 # ICEBOX 
 - Add a crunch sound for when the dog eats the treat
 - Add a fun background music
-  - Allow the user to music the music if desired
-- As a aplayer, I want to be shown a count down to the start of the game.
-- As a player, I want the dog to move faster each time it eats so the game becomes more challenging.
+  - Allow the user to mute the music if desired
+- As a aplayer, I want to be shown a count down at the start of the game.
 - As a player, I want to select which dog I want to play with (Tyler of Taylor).
 - Board as a table
 - As a SE, I want the user to win and see a fun message, when there is not more room for the dog to grow.

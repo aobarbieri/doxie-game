@@ -12,6 +12,10 @@ HTML, CSS and JavaScript.
 # Getting Started
 Play now! https://aobarbieri.github.io/doxie-game/
 
+- Use the keyboard arrows to guide the dog towards the treat. 
+- Do not let the dog hit the edges of the playing area or its own body.
+- Colect as many treat as possible to achieve a high score.
+
 # Next Steps
 - Add a crunch sound for when the dog eats the treat.
 - Add a fun background music.

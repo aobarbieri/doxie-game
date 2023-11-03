@@ -1,55 +1,46 @@
-# Choice of Game: SNAKE (Dachshund as a character)
+# Game: SNAKE (Dachshund as a character)
+
 
 # Wireframe
 https://www.figma.com/file/lOJ2dlLjrZpje13gi3NXQi/Dachshund-Game-(Snake)?type=design&node-id=0%3A1&mode=design&t=Zufn8p0i9zKF93FT-1
 
 
-* Rules
-  * Do not let the dog hit a wall
-  * Do not let the dog bite its own body
-  * Your score is calculated based on the number of treats you eat
-
-* Win/Lose
-  * Win - You win the game when there is no more room for the dog to grow
-  * Lose - You lose the game if the dog bites its body or hit a wall
-
-
-# App's functionality
-- DONE - As a player, I want to have my score visibile above the grid.
-- DONE - As a SE, I want the game to end when the player hits the wall or bites the body.
-- DONE - As a player, I want to control the character using the keyboard arrow.
-- DONE - As a SE, I want the treats to be placed randomly on the screen 
-- DONE - As a player, I want to play again after winning or losing.
-- DONE - As a player, I want to guide the dog to eat the treat so it can grow longer.
-
-
 # Pseudocode 
-$ DONE - Player clicks on a button to start the game 
-  DONE - The dog starts moving
+$ Player clicks on a button to start the game 
+   - The dog starts moving
 
-$ DONE - Player uses the keyboard to navigate the dog towards the treat
+$ Player uses the keyboard to navigate the dog towards the treat
   * Up, Down, Left, Right
   
-$ DONE - Set boundaries -> walls, dog body and backwards movements
+$ Boundaries -> walls, dog body and backwards movements
 
-$ DONE - Check if the dog hit a wall or bite itself (every time before each movement on the grid)
+$ Check if the dog hits its own body or the edges of the playing area (every time before each movement on the grid)
   * Game over 
-      * bite itself or hit the wall
+      * hits its own body or the edges
       * Show the button Play Again -> a new game starts
 
-$ DONE - Display treats on the grid based on random location
+$ Display treats on the grid based on a random location
 
-$ DONE - Allow the dog to eat the treats
+$ Allow the dog to eat the treats
   - Treats disappear, and reappear on a random location
   - Updates the score -> treat count increases on the board
 
 
+* Rules
+  * Do not let the dog hit the edges of the playing area.
+  * Do not let the dog hit its own body.
+  * Your score is calculated based on the number of treats you eat.
 
-# ICEBOX 
-- Add a crunch sound for when the dog eats the treat
-- Add a fun background music
-  - Allow the user to mute the music if desired
-- As a aplayer, I want to be shown a count down at the start of the game.
-- As a player, I want to select which dog I want to play with (Tyler of Taylor).
-- Board as a table
-- As a SE, I want the user to win and see a fun message, when there is not more room for the dog to grow.
+* Win/Lose
+  * Win - You win the game when there is no more room for the dog to grow.
+    * For a quick and temporary demonstration of the win screen, the player can win when reaches score 70.
+  * Lose - You lose the game if the dog hits its own body or the edges.
+
+
+# App's functionality
+- As a player, I want to have my score visible above the grid.
+- As a SE, I want the game to end when the dog hits the edges of the playing area or its own body.
+- As a player, I want to control the character using the keyboard arrows.
+- As a SE, I want the treats to be placed randomly on the screen. 
+- As a player, I want to play again after winning or losing.
+- As a player, I want to guide the dog to eat the treat so it can grow longer.

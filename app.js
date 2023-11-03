@@ -1,5 +1,3 @@
-/* constants */
-
 /* state variables */
 let score
 let speed = 300
@@ -24,7 +22,6 @@ const scoreEl = document.getElementById('score')
 const headEl = document.createElement('img')
 const tailEl = document.createElement('img')
 const endGameMessage = document.querySelector('.end p')
-
 
 food.src = './images/food.svg'
 food.alt = 'Dog treat'
@@ -156,7 +153,6 @@ function restart() {
 }
 
 function startPosition(startPosition) {
-	//const startPosition = document.querySelectorAll('#grid div')
 	setDogBody(startPosition)
 	// body
 	let parentBody = startPosition[dogBody[1]]
@@ -168,7 +164,6 @@ function setDogBody(locations) {
 	let parentHead = locations[dogBody[0]]
 	parentHead.classList.add('relative', 'dog')
 	parentHead.appendChild(headEl)
-
 	// tail
 	let parentTail = locations[dogBody[dogBody.length - 1]]
 	parentTail.classList.add('relative', 'dog')
